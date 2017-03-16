@@ -1,0 +1,139 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <script src="{% static "jquery/dist/jquery.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/register_mail.css" %}">
+
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+{#           var error= $("#error_message").text();#}
+{#           var regex =/\w+/;#}
+{#           if (error.match(regex)!=null){#}
+{#                $("#error_message").show();#}
+{#           }#}
+{#           #}
+
+            var li = ['註冊帳號','註冊密碼','再輸入一次密碼','常用信箱','信件的驗證碼'];
+           $('table').each(function() {
+                $(this).find('input').each(function(index) {
+                    $(this).attr("placeholder",li[index]);
+                });
+            });
+
+            var sucess_text = $('#sucess_message').text();
+            var regex =/\w+/;
+            if(sucess_text.match(regex)!=null){
+                window.setTimeout(function () {
+                location.href = "/user/login/";
+                }, 3000);
+            }
+
+            $("#register_submit").click(
+                function () {
+                    var newPassword = $("#password").val();
+                    var repeatPassword = $("#repeatPassword").val();
+                    if (newPassword!=repeatPassword) {
+                        alert("您輸入的用戶密碼與重複密碼不符合請重新輸入！");
+                        $("#password").val('');
+                        $("#repeatPassword").val('');
+                    }
+
+                }
+            )
+        })
+    </script>
+
+
+
+</head>
+<body>
+
+
+
+
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name"><a href="/index/">Home</a></h1></div>
+            <div id="user-tools">
+                Welcome,<strong>{{ username }}</strong>.
+                <a href="/">View site</a> /
+                <a href="{% url "logout" %}">Log out</a>
+            </div>
+</div>
+
+
+
+
+<form action="" method="post" >
+    {% csrf_token %}
+
+    <div id="content" >
+    <div id="content_header" style="background: white;color: #707070">請輸入註冊資訊</div>
+    {% if f.errors %}
+        <div id="error_message">
+            {% for field, errors in f.errors.items %}
+                {{ errors}}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+
+    {% if messages %}
+        <div id="error_message">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        </div>
+    {% endif %}
+
+
+        <table id="register_table"  align="center">
+            <tr>
+                <td> {{ f.username }}</td>
+            </tr>
+
+            <tr>
+                <td>{{ f.password }}</td>
+            </tr>
+
+            <tr>
+                <td>{{ f.repeatPassword }}</td>
+            </tr>
+
+            <tr>
+                <td>{{ f.email }}</td>
+            </tr>
+
+
+            <tr>
+                <td> {{ f.email_token }}</td>
+
+            </tr>
+
+            <tr>
+                <td id="register_submit" style="float: right"><input type="submit" value="下一步"></td>
+            </tr>
+        </table>
+
+
+</form>
+
+<footer>
+    <div id="about"><a href="{% url 'index' %}" >{{ error }}關於我們</a></div>
+</footer>
+
+
+
+</body>
+
+</html>
