@@ -15,7 +15,7 @@ $migrate
 
 3.Copy file to your project
 
-4.In setting.py INATALL_APP append "egister_email" like this
+4.In setting.py INATALL_APP append "egister_email" like this![this link can setting gmail token](https://myaccount.google.com/security)
 ```python
 INSTALLED_APPS = (
     'django.contrib.admin',
