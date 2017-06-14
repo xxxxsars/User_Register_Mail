@@ -1,7 +1,7 @@
 1.Initial setting on terminal  
 
 ```
-$git clone git@github.com:xxxxsars/User_Register_Mail.git
+$git clone https://github.com/xxxxsars/User_Register_Mail.git
 
 $pip install  requirements.txt
 ```
